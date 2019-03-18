@@ -33,8 +33,7 @@
             <a href="#" class="nav-link">
               <i class="fa fa-circle-o nav-icon"></i>
               <p>
-                <%= agenda.title %>
-                <i class="right fa fa-angle-left"></i>
+                <%= agenda.title %><p><%= link_to 'アジェンダ を削除する', agenda_path(agenda.id), method: :delete,data: { confirm: '本当に削除していいですか？'}, class: "btn btn-danger" %><i class="right fa fa-angle-left"></i></p>
               </p>
             </a>
             <ul class="nav nav-treeview" style="display: block;">
