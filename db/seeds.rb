@@ -1,1 +1,0 @@
-Team.create!(name: 'キルア')
