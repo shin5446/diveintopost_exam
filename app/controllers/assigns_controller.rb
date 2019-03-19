@@ -26,6 +26,7 @@ class AssignsController < ApplicationController
   end
 
   def assign_destroy(assign, assigned_user)
+    # raise
     if assigned_user == assign.team.owner
       'リーダーは削除できません。'
     elsif Assign.where(user_id: assigned_user.id).count == 1
