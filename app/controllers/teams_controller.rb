@@ -1,6 +1,7 @@
 class TeamsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_team, only: %i[show edit update destroy change_owner]
+  before_action :only_owner_can_edit, only: %i[edit]
 
   def index
     @teams = Team.all
@@ -30,7 +31,8 @@ class TeamsController < ApplicationController
   end
 
   def update
-    if @team.update(team_params)
+    if @team.owner = current_user
+      @team.update(team_params)
       redirect_to @team, notice: 'チーム更新に成功しました！'
     else
       flash.now[:error] = '保存に失敗しました、、'
@@ -63,5 +65,11 @@ class TeamsController < ApplicationController
 
   def team_params
     params.fetch(:team, {}).permit %i[name icon icon_cache owner_id keep_team_id user_id]
+  end
+
+  def only_owner_can_edit
+    unless @team.owner == current_user
+      redirect_to team_url, notice: 'チームリーダー以外は編集出来ません！'
+    end
   end
 end
